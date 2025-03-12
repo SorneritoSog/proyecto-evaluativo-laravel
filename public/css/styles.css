@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+            
+/* Variables */
+:root {
+    /* Tipografía */
+    --main-font: "Nunito", sans-serif;
+
+    /* Colores */
+    --color-primary: #070707; /* Fondo principal */
+    --color-secondary: #111111; /* Fondo secundario */
+    --color-tertiary: #1E1E1E; /* Fondo adicional */
+    --color-brand: #1DB954; /* Color de marca */
+    --color-heading: #0D0D0D; /* Fondos para encabezados */
+    --color-border-dark: #333333; /* Bordes oscuros */
+    --color-border-light: #707070; /* Bordes claros */
+    --color-text-very-big: white; /* Encabezados */
+    --color-text-primary: #CDCDCD; /* Texto principal */
+    --color-text-secundary: #959595; /* Texto secundario */
+    --color-text-muted: #5F5F5F; /* Texto apagado */
+    --color-text-status-one: #92AFAF; /* Texto de estado 1 */
+    --color-text-status-two: #CF9E19; /* Texto de estado 2 */
+    --color-text-status-three: #1DB262; /* Completado */
+    --color-text-status-four: #B42F3A; /* Cancelado */
+    --color-iput: #1A1A1A; /* Colores de los imput */
+
+    /* Tamaños de texto */
+    --size-very-big: 20px;
+    --size-heading: 16px; /* Encabezados */
+    --size-body: 14px; /* Texto principal */
+    --size-small: 10px; /* Texto pequeño */
+
+    /* Border */
+    --all-border-radius: 5px;
+
+    --margin-and-padding-big: 20px;
+}
+
+/* Tipos de texto */
+.text-heading {
+    font-size: var(--size-heading);
+    color: var(--color-text-primary);
+}
+
+.text-body {
+    font-size: var(--size-body);
+    color: var(--color-text-primary);
+}
+
+.text-small {
+    font-size: var(--size-small);
+    color: var(--color-text-secundary);
+}
+
+.text-opaque {
+    font-size: var(--size-body);
+    color: var(--color-text-secundary);
+}
+
+.text-muted {
+    font-size: var(--size-body);
+    color: var(--color-text-muted);
+}
+
+/* General */
+body {
+    background-color: var(--color-primary);
+    font-family: var(--main-font);
+    color: var(--color-text-very-big);
+    font-weight: 400;
+    font-style: normal;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1 {
+    font-size: var(--size-very-big);
+    color: var(--color-text-very-big);
+}
+
+img {
+    object-fit: cover;
+    object-position: center;
+    border-radius: var(--all-border-radius);
+}
+
+
+button, a {
+    padding: 8px;
+    font-size: var(--size-body);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.second-button {
+    background-color: #262730;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.select {
+    background-color: var(--color-text-very-big);
+    color: var(--color-primary);
+    border-radius: 50px;
+    margin-right: 8px;
+}
+
+.no-select {
+    background-color: var(--color-tertiary);
+    color: var(--color-text-primary);
+    border-radius: 50px;
+    margin-right: 8px;
+}
+
+.new-product {
+    background-color: var(--color-brand);
+    color: var(--color-primary);
+}
+
+.categories {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--margin-and-padding-big);
+    padding-bottom: var(--margin-and-padding-big);
+    margin-bottom: var(--margin-and-padding-big);
+    border-bottom: solid var(--color-border-dark) 1px;
+}
+
+.categories .category {
+    background-color: var(--color-secondary);
+    height: 65px;
+    border-radius: 5px;
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.categories .category:hover {
+    background-color: #1F1F1F;
+}
+
+.categories .category .cover-category {
+    height: inherit;
+    object-fit: cover;
+    object-position: center;
+    border-radius: inherit;
+}
+
+.categories .category .category-details {
+    height: inherit;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menusito {
+    position: absolute;
+    width: 3px;
+    right: 6px;
+}
+
+.menusito p {
+    width: inherit;
+    height: 3px;
+    background-color: var(--color-text-secundary);
+    border-radius: 50%;
+    margin-bottom: 2.5px;
+}
+
+.category-details .separation{
+    border-left: solid var(--color-border-dark) 1px;
+    margin: 0 0.5vw;
+}
+
+.new-category {
+    width: 75%;
+    height: 100%;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    border: dashed var(--color-brand) 1px;
+    border-radius: var(--all-border-radius);
+    opacity: 0;
+    position: relative;
+    background-color: transparent;
+    color: var(--color-brand);
+    font-size: var(--size-very-big);
+}
+
+.new-category:hover {
+    opacity: 1;
+}
+
+.search {
+    width: 24vw;
+    height: 5vh;
+    background-color: var(--color-secondary);
+    border: none;
+    border-radius: var(--all-border-radius);
+    padding-left: var(--margin-and-padding-big);
+    color: var(--color-text-primary);
+    margin-bottom: var(--margin-and-padding-big);
+}
+
+.products {
+    width: 100%;
+    flex-grow: 1;
+    background-color: var(--color-secondary);
+    padding: var(--margin-and-padding-big);
+    border-radius: var(--all-border-radius);
+}
+
+.products tr {
+    display: grid;
+    grid-gap: 0 1vw;
+    padding: 7px;
+    border-bottom: solid var(--color-border-dark) 1px;
+    align-items: center;
+    grid-template-columns: 30% repeat(2, 10%) repeat(3, 1fr);
+}
+
+.products th {
+    text-align: start;
+}
+
+.product:hover {
+    background-color: #1F1F1F;
+    cursor: pointer;
+}
+
+.product img {
+    width: 45px;
+    height: 45px;
+}
+
+/* ESTILOS DE CREAR PRODUCTO */
+
+.form-new-product {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: calc(70% - var(--margin-and-padding-big)) 30%;
+    grid-template-rows: calc(70% - var(--margin-and-padding-big)) 30%;
+    gap: var(--margin-and-padding-big);
+}
+
+.form-new-product div {
+    border-radius: var(--all-border-radius);
+    background-color: var(--color-secondary);
+    padding: var(--margin-and-padding-big);
+    display: flex;
+    flex-direction: column;
+}
+
+.form-new-product .price-and-stock {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto 1fr;
+}
+
+.form-new-product .price-and-stock h2 {
+    grid-column: span 2; 
+}
+
+.form-new-product .price-and-stock input {
+    margin-bottom: 0;
+}
+
+.form-new-product div h2 {
+    margin-bottom: 10px;
+}
+
+.form-new-product div p {
+    font-size: var(--size-body);
+    color: var(--color-text-primary);
+    margin-bottom: 5px;
+}
+
+.form-new-product div input, select {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 10px;
+    background-color: var(--color-iput);
+    border: none;
+    border-radius: var(--all-border-radius);
+    padding: 0 var(--margin-and-padding-big);
+    color: var(--color-text-primary);
+}
+
+.form-new-product textarea {
+    flex-grow: 1;
+    margin-bottom: 10px;
+    background-color: var(--color-iput);
+    border: none;
+    border-radius: var(--all-border-radius);
+    padding: var(--margin-and-padding-big);
+    color: var(--color-text-primary);
+}
