@@ -1,6 +1,6 @@
 @extends('partials.layout')
 
-@section('title','Productos')
+@section('title','Categoria')
 
 @section('content')
     <header>
@@ -46,16 +46,18 @@
                         
 
                     </p>
-
-                    <a class="button-edit-category" href="{{ route('category.edit', $category) }}">
-                        <img src="{{ asset( 'css/editar.png' ) }}" alt="edit">
-                    </a>
+                            
+                    <div class="menusito">
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
                 </div>
             </div>
                 
         @endforeach
 
-        @if(count($categories) < 9) 
+        @if(count($categories) < 10) 
             <button class="new-category" onclick="window.location='{{ route('categories.create') }}'">+</button>
         @endif
         
@@ -75,8 +77,7 @@
                     <th><strong>FECHA ACT</strong></th>
                 </tr>
             </thead>
-
-            <div class="conteiner-tbody">
+    
             <tbody>
 
                 @forelse($products as $product)
@@ -101,8 +102,6 @@
                 @endforelse
 
             </tbody>
-            </div>
-            
         </table>
     </section>
 @endsection

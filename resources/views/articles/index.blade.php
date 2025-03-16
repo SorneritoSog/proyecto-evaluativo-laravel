@@ -1,41 +1,41 @@
 @extends('partials.layout')
 
-@section('title','Productos')
+@section('title','Artículos')
 
 @section('content')
     <header>
         <div>
-            <button class="button-root select">Productos</button>
-            <a href="{{ route('articles') }}" class="button-root no-select">Articulos</a>
+            <a href="{{ route('home') }}" class="button-root no-select">Productos</a>
+            <button class="button-root select">Articulos</button>
         </div>
 
-        <a href="{{ route('products.create') }}" class="new-product">Nuevo producto</a>
+        <a href="{{ route('articles.create') }}" class="new-product">Nuevo articulo</a>
     </header> 
         
     <div class="categories">
-        <div class="category" onclick="window.location='{{ route('home') }}'">
+        <div class="category" onclick="window.location='{{ route('articles') }}'">
             <div class="category-details">
-                <p class="text-body">Todos <span class="separation"></span> <span class="text-opaque">{{ $totalProducts }} Productos</span></p>
+                <p class="text-body">Todos <span class="separation"></span> <span class="text-opaque">{{ $totalArticles }} Articulos</span></p>
             </div>
         </div>
 
         <div class="category" onclick="window.location='{{ route('category.show', $categories[0]->id) }}'">
             <div class="category-details">
-                <p class="text-body">Sin categoria <span class="separation"></span> <span class="text-opaque">{{ $categories[0]->productos_count }} Productos</span></p>
-                <p class="text-small">Productos que no tienen categoria</p>
+                <p class="text-body">Sin categoria <span class="separation"></span> <span class="text-opaque">{{ $categories[0]->articulos_count }} Articulos</span></p>
+                <p class="text-small">Articulos que no tienen categoria</p>
             </div>
         </div>
 
         @foreach($categories as $category)
 
-            @if($category->id == 1) 
+            @if($category->id == 2) 
                 @continue
             @endif
             
             <div class="category" onclick="window.location='{{ route('category.show', $category->id) }}'">
                 <div class="category-details">
                             
-                    <p class="text-body">{{ $category->nombre }}<span class="separation"></span> <span class="text-opaque">{{ $category->productos_count }} Productos</span></p>
+                    <p class="text-body">{{ $category->nombre }}<span class="separation"></span> <span class="text-opaque">{{ $category->articulos_count }} Articulos</span></p>
                     <p class="text-small">
 
                     @if($category->descripcion == null) 
@@ -61,15 +61,15 @@
         
     </div>
 
-    <input class="search" type="text" placeholder="Buscar producto"/>
-    
-    <section class="products">
+    <input class="search" type="text" placeholder="Buscar articulos"/>
+
+    <section class="articles">
         <table style="width: 100%;">
             <thead>
                 <tr class="text-muted">
-                    <th><strong>PRODUCTO</strong></th>
-                    <th><strong>PRECIO</strong></th>
-                    <th><strong>STOCK</strong></th>
+                    <th><strong>ARTÍCULO</strong></th>
+                    <th><strong>AUTOR</strong></th>
+                    <th><strong>COMENTARIOS</strong></th>
                     <th><strong>CATEGORIA</strong></th>
                     <th><strong>FECHA CRE</strong></th>
                     <th><strong>FECHA ACT</strong></th>
@@ -79,24 +79,24 @@
             <div class="conteiner-tbody">
             <tbody>
 
-                @forelse($products as $product)
-                    <tr class="product" onclick="window.location='{{ route('product.show', $product) }}'">                        
+                @forelse($articles as $article)
+                    <tr class="product" onclick="window.location='{{ route('article.show', $article) }}'">                        
                         <td class="text-body" style="display:flex;gap:0 7px;">
-                            <img src="{{ asset(  $product->imagen  ) }}" alt="photo-product">
+                            <img src="{{ asset(  $article->imagen_destacada  ) }}" alt="photo-product">
                             <div>
-                                <p class="text-body">{{ $product->nombre }} <br> <span class="text-small"># {{ $product->id }}</span></p>
+                                <p class="text-body">{{ $article->titulo }} <br> <span class="text-small"># {{ $article->id }}</span></p>
                             </div>
                         </td>
 
-                        <td class="text-body">{{ $product->precio }}</td>
-                        <td class="text-opaque">{{ $product->stock }}</td>
-                        <td class="text-opaque">{{ $product->categoria->nombre }}</td>
-                        <td class="text-opaque">{{ $product->created_at }}</td>
-                        <td class="text-opaque">{{ $product->updated_at }}</td>                
+                        <td class="text-body">{{ $article->autor }}</td>
+                        <td class="text-opaque">{{ $article->comentarios_count }}</td>
+                        <td class="text-opaque">{{ $article->categoria->nombre }}</td>
+                        <td class="text-opaque">{{ $article->created_at }}</td>
+                        <td class="text-opaque">{{ $article->updated_at }}</td>                
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-muted">Sin productos</td>
+                        <td class="text-muted">Sin artículos</td>
                     </tr>
                 @endforelse
 
@@ -105,4 +105,5 @@
             
         </table>
     </section>
+    
 @endsection

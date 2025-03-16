@@ -8,50 +8,51 @@
 
         <div>
             <a href="{{ route('home') }}" class="second-button">Cancelar</a>
-            <button class="new-product">Añadir producto</button>
+            <button class="new-product" type="submit" form="form-create-product">Añadir producto</button>
         </div>
     </header> 
         
-    <form class="form-new-product">
+    <form id="form-create-product" class="form-new-product" method="POST" action="{{ route('products.store') }}">
+        @csrf {{-- Cross Site Request Forgery --}}
+
         <div>
             <h2 class="text-heading">Información general</h2>
 
             <p>Nombre</p> 
-            <input type="text" placeholder="Nombre del producto"> 
+            <input name="name" type="text" placeholder="Nombre del producto"> 
 
             <p>Descripción</p> 
-            <textarea placeholder="Descripción del producto"></textarea>
+            <textarea name="descriptions" placeholder="Descripción del producto"></textarea>
 
         </div>
         <div>
             <h2 class="text-heading">Imagen</h2>
 
-            <input type="file">
+            <input name="image" type="file">
         </div>
         <div class="price-and-stock">
             <h2 class="text-heading">Precio y existencias</h2>
 
             <div>
                 <p>Precio</p> 
-                <input type="text" placeholder="$ 0"> 
+                <input name="price" type="text" placeholder="$ 0"> 
             </div>
 
             <div>
                 <p>Existencas</p> 
-                <input type="number" placeholder="0"> 
+                <input name="stock" type="number" placeholder="0"> 
             </div>
         </div>
         <div>
             <h2 class="text-heading">Categoria</h2>
 
             <p>Categoria del producto</p> 
-            <select>
-                <option value="opcion1">Sin categoria</option>
-                <option value="opcion2">Opción 2</option>
-                <option value="opcion3">Opción 3</option>
-                <option value="opcion1">Opción 1</option>
-                <option value="opcion2">Opción 2</option>
-                <option value="opcion3">Opción 3</option>
+            <select name="category">
+                @foreach($categories as $category)
+            
+                    <option value="{{ $category->id }}">{{ $category->nombre }}</option>
+                
+                @endforeach
             </select>
         </div>
     </form>
