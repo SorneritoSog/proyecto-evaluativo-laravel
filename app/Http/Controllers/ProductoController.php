@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\StockLowNotice;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 
@@ -39,7 +41,7 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
 
-        Product::create([
+        $product = Product::create([
             'nombre' => $request['name'],
             'descripcion' => $request['description'],
             'precio' => $request['price'],
@@ -47,6 +49,10 @@ class ProductoController extends Controller
             'imagen' => "css/porshe.jpg",
             'categoria_id' => $request['category']
         ]);
+    
+        if ($product->stock <= 5) {
+            Mail::to('spenalozavelez1@gmail.com')->send(new StockLowNotice($product));
+        }
 
         return redirect()->route('home');
     }
@@ -82,6 +88,10 @@ class ProductoController extends Controller
             'imagen' => 'css/porshe.jpg',
             'categoria_id' => $request->input('category'),
         ]);
+
+        if ($product->stock <= 5) {
+            Mail::to('spenalozavelez1@gmail.com')->send(new StockLowNotice($product));
+        }
 
         return redirect()->route('product.show', $product);
     }

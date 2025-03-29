@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewCommentNotice;
 use App\Models\Article;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -32,12 +34,14 @@ class CommentController extends Controller
      */
     public function store(Request $request, Article $article)
     {
-        Comment::create ([
+        $comment = Comment::create ([
             'contenido' => $request['content'],
             'nombre_usuario' => $request['user'],
             'email' => $request['email'],
             'articulo_id' => $article->id
         ]);
+
+        Mail::to('spenalozavelez1@gmail.com')->send(new NewCommentNotice($comment));
 
         $comments = Comment::latest()->where('articulo_id', $article->id)->get();
 
