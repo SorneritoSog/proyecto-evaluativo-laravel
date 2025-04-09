@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth')->only(["create", "edit", "destroy"]);
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -38,9 +42,9 @@ class CategoriesController extends Controller
         ]);
 
         if ($request['category-type'] == "productos") {
-            return redirect()->route('home');
+            return redirect()->route('home')->with('status', 'Categoria creada exitosamente');
         } else {
-            return redirect()->route('articles');
+            return redirect()->route('articles')->with('status', 'Categoria creada exitosamente');
         }
 
     }
@@ -87,9 +91,9 @@ class CategoriesController extends Controller
         ]);
 
         if ($request['category-type' == "producto"]) {
-            return redirect()->route('home');
+            return redirect()->route('home')->with('status', 'Categoria actualizada exitosamente');
         } else {
-            return redirect()->route('articles');
+            return redirect()->route('articles')->with('status', 'Categoria actualizada exitosamente');
         }
     }
 
@@ -110,7 +114,7 @@ class CategoriesController extends Controller
 
             $category->delete();
 
-            return redirect()->route('home');
+            return redirect()->route('home')->with('status', 'Categoria eliminada');
 
         } else {
             $content = $category->articulos;
@@ -121,7 +125,7 @@ class CategoriesController extends Controller
 
             $category->delete();
 
-            return redirect()->route('articles');
+            return redirect()->route('articles')->with('status', 'Categoria eliminada');
         }
     }
 }

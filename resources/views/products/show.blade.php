@@ -49,15 +49,24 @@
             <p class="text-body">{{ $product->updated_at }}</p>
         </div>
 
+        @if(session('status'))
+            <div class="product-detail">
+                <p class="text-body">{{ session('status') }}</p>
+                <p></p>
+            </div>
+        @endif
+        
+
         <div class="product-buttons">
+            @auth
+                <form action="{{ route('product.delete', $product) }}" method="POST">
+                    @csrf @method('DELETE')
 
-            <form action="{{ route('product.delete', $product) }}" method="POST">
-                @csrf @method('DELETE')
+                    <button class="delete-button">Eliminar</button>
+                </form>
 
-                <button class="delete-button">Eliminar</button>
-            </form>
-            
-            <a class="second-button" href="{{ route('product.edit', $product) }}">Editar</a>
+                <a class="second-button" href="{{ route('product.edit', $product) }}">Editar</a>
+            @endauth
         </div>
 
     </section>

@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth')->only(["create", "edit", "destroy"]);
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -54,7 +59,7 @@ class ProductoController extends Controller
             Mail::to('spenalozavelez1@gmail.com')->send(new StockLowNotice($product));
         }
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('status', 'Producto creado exitosamente');
     }
 
     /**
@@ -93,7 +98,7 @@ class ProductoController extends Controller
             Mail::to('spenalozavelez1@gmail.com')->send(new StockLowNotice($product));
         }
 
-        return redirect()->route('product.show', $product);
+        return redirect()->route('product.show', $product)->with('status', 'Producto actualzado exitosamente');
     }
 
     /**
@@ -103,6 +108,6 @@ class ProductoController extends Controller
     {
         $product->delete();
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('status', 'Producto eliminado');
     }
 }

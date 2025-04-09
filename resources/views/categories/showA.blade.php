@@ -9,7 +9,19 @@
             <button class="button-root select">Articulos</button>
         </div>
 
-        <a href="{{ route('articles.create') }}" class="new-product">Nuevo articulo</a>
+        @auth
+            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                @csrf
+            </form>
+
+            <a href="{{ route('articles.create') }}" class="new-product">Nuevo articulo</a>
+        @else 
+            <a href="{{ route('login') }}">Iniciar sesión</a>
+            <form></form>
+
+            <p></p>
+        @endauth
     </header> 
         
     <div class="categories">
@@ -55,13 +67,21 @@
                 
         @endforeach
 
-        @if(count($categories) < 9) 
-            <button class="new-category" onclick="window.location='{{ route('categories.create') }}'">+</button>
-        @endif
+        @auth
+            @if(count($categories) < 9) 
+                <button class="new-category" onclick="window.location='{{ route('categories.create') }}'">+</button>
+            @endif
+        @endauth
         
     </div>
 
-    <input class="search" type="text" placeholder="Buscar articulos"/>
+    <div class="search-and-message">
+        <input class="search" type="text" placeholder="Buscar articulo"/>
+
+        @if(session('status'))
+            <p class="text-body">{{ session('status') }}</p>
+        @endif
+    </div>
 
     <section class="articles">
         <table style="width: 100%;">

@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth')->only(["create", "edit", "destroy"]);
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -46,7 +50,7 @@ class ArticleController extends Controller
             'categoria_id' => $request['category']
         ]);
 
-        return redirect()->route('articles');
+        return redirect()->route('articles')->with('status', 'Articulo creado exitosamente');
     }
 
     /**
@@ -82,7 +86,7 @@ class ArticleController extends Controller
             'categoria_id' => $request['category']
         ]);
 
-        return redirect()->route('article.show', $article);
+        return redirect()->route('article.show', $article)->with('status', 'Articulo actualzado exitosamente');
     }
 
     /**
@@ -92,6 +96,6 @@ class ArticleController extends Controller
     {
         $article->delete();
 
-        return redirect()->route('articles');
+        return redirect()->route('articles')->with('status', 'Articulo eliminado');
     }
 }

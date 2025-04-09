@@ -24,24 +24,38 @@
                 <p class="text-body">{{ $article->contenido }}</p>
             </div>
 
-            <div class="product-buttons">
+            @if(session('status'))
+                <div class="product-detail">
+                    <p class="text-body">{{ session('status') }}</p>
+                    <p></p>
+                </div>
+            @endif
 
-                <form action="{{ route('article.delete', $article) }}" method="POST">
-                    @csrf 
-                    @method('DELETE')
+            @auth
+                <div class="product-buttons">
 
-                    <button class="delete-button">Eliminar</button>
-                </form>
-                
-                <a href="{{ route('article.edit', $article) }}" class="second-button">Editar</a>
-            </div>
+                    <form action="{{ route('article.delete', $article) }}" method="POST">
+                        @csrf 
+                        @method('DELETE')
+
+                        <button class="delete-button">Eliminar</button>
+                    </form>
+
+                    <a href="{{ route('article.edit', $article) }}" class="second-button">Editar</a>
+                </div>
+            @endauth
+
         </div>
 
         <div class="content-comments">
             <div class="comments-header">
                 <h2 class="text-heading">Comentarios <span class="text-muted">{{ count($comments) }}</span></h2>
 
-                <a href="{{ route('comment.create', $article) }}" class="new-product">Agregar comentario</a>
+                @auth
+                    <a href="{{ route('comment.create', $article) }}" class="new-product">Agregar comentario</a>
+                @else 
+                    <p></p>
+                @endauth
             </div>
 
             <div class="comments">
@@ -50,7 +64,11 @@
                     <div class="comment">
                         <div>
                             <p class="text-opaque"># {{ $comment->id }}</p>
-                            <a href="{{ route('comment.edit', ['article' => $article, 'comment' => $comment]) }}" class="button-edit-comment"><img src="{{ asset( 'css/editar.png' ) }}" alt="edit"></a>
+                            @auth 
+                                <a href="{{ route('comment.edit', ['article' => $article, 'comment' => $comment]) }}" class="button-edit-comment"><img src="{{ asset( 'css/editar.png' ) }}" alt="edit"></a>
+                            @else
+                                <p></p>
+                            @endauth
                         </div>
 
                         <p class="text-body">{{ $comment->contenido }}</p>
@@ -66,12 +84,13 @@
                             <p class="text-muted">Actualizado el <br> <span class="text-opaque">{{ $comment->updated_at }}</span></p>
                         </div>
 
-                        <form action="{{ route('comment.delete', ['article' => $article, 'comment' => $comment]) }}" method="POST" style="display:flex;justify-content: flex-end;">
-                            @csrf @method('DELETE')
+                        @auth 
+                            <form action="{{ route('comment.delete', ['article' => $article, 'comment' => $comment]) }}" method="POST" style="display:flex;justify-content: flex-end;">
+                                @csrf @method('DELETE')
 
-                            <button class="delete-button">Eliminar</button>
-                        </form>
-
+                                <button class="delete-button">Eliminar</button>
+                            </form>
+                        @endauth
                     </div>
                 @empty
                     <p class="text-muted">Sin comentarios</p>

@@ -38,3 +38,6 @@ Route::post('articles/{article}/storeComment', [CommentController::class, 'store
 Route::get('articles/{article}/edit/{comment}', [CommentController::class, 'edit'])->name('comment.edit');
 Route::patch('article/{article}/{comment}', [CommentController::class, 'update'])->name('comment.update');
 Route::delete('article/{article}/{comment}', [CommentController::class, 'destroy'])->name('comment.delete');
+
+/* LOGIN */
+Auth::routes();
